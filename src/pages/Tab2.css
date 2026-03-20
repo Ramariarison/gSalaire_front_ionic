@@ -1,0 +1,83 @@
+ion-item {
+  --border-width: 0;
+  --inner-border-width: 0;
+  --background: transparent;
+  --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-end: 0;
+  margin: 0;
+}
+
+ion-list {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+ion-header {
+    box-shadow: none !important;
+}
+
+ion-toolbar {
+  --background: #1e1e2f;
+  --color: white;
+}
+
+ion-title {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.status-text {
+  text-align: center;
+  color: #b0b0b0;
+  margin-top: 20px;
+}
+
+.employe-item {
+  --background: transparent;
+  margin: 0;
+  padding: 0;
+}
+
+.employe-card {
+  width: 100%;
+  background: linear-gradient(145deg, #1e1e2f, #25253a);
+  border-radius: 14px;
+
+  padding: 14px;
+  margin: 4px 12px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.employe-info h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.employe-info p {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: #4cd964;
+}
+
+.employe-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.employe-actions ion-button {
+  --background: rgba(255, 255, 255, 0.05);
+  --color: white;
+  border-radius: 8px;
+}
+
+.employe-card:hover {
+  transform: translateY(-2px);
+  transition: 0.2s;
+}
