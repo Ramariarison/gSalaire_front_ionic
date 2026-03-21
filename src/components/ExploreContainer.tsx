@@ -13,7 +13,7 @@ const ExploreContainer: React.FC<ContainerProps> = ({ name }) => {
         {name}
       </strong>
       <p>Application permettant de gérer efficacement les employés et leurs informations.</p>
-      <IonButton href='/tab2' color={'light'}>
+      <IonButton routerLink="/tab2" color="light">
         <IonIcon slot='start' icon={people}></IonIcon>
         Voir employés
       </IonButton>
