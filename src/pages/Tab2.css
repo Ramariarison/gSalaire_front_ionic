@@ -86,3 +86,42 @@ ion-title {
   --background: #4cd964;
   --color: black;
 }
+
+.modal-content {
+  --background: #f5f7fa;
+}
+
+.form-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-item {
+  --background: #ffffff;
+  border-radius: 5px;
+  --inner-padding-start: 10px;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.save-btn {
+  --background: #4cd964;
+  --padding-start: 20px;
+  --padding-end: 20px;
+  --padding-top: 14px;
+  --padding-bottom: 14px;
+  font-weight: bold;
+}
+
+.delete-btn {
+  --padding-start: 20px;
+  --padding-end: 20px;
+  --padding-top: 14px;
+  --padding-bottom: 14px;
+}

@@ -149,43 +149,67 @@ const Tab2: React.FC = () => {
 
         {/* Modal */}
         <IonModal isOpen={showModal}>
-          <IonContent>
-            <h2>{currentEmploye.id ? 'Modifier' : 'Ajouter'} un employé</h2>
+          <IonHeader>
+            <IonToolbar>
+              <IonTitle>
+                {currentEmploye.id ? 'Modifier' : 'Ajouter'} un employé
+              </IonTitle>
+            </IonToolbar>
+          </IonHeader>
 
-            <IonInput
-              placeholder="Nom"
-              value={currentEmploye.nom}
-              onIonChange={(e) => {
-                setCurrentEmploye({
-                  ...currentEmploye,
-                  nom: e.detail.value!
-                })
-              }}
-            />
+          <IonContent className="modal-content">
 
-            <IonInput
-              type="number"
-              placeholder="Salaire"
-              value={currentEmploye.salaire}
-              onIonChange={(e) => {
-                setCurrentEmploye({
-                  ...currentEmploye,
-                  salaire: Number(e.detail.value!)
-                })
-              }}
-            />
+            <div className="form-container">
 
-            <IonButton expand="block" onClick={handleSave}>
-              Enregistrer
-            </IonButton>
+              <IonItem className="input-item">
+                <IonInput
+                  label="Nom"
+                  labelPlacement="stacked"
+                  placeholder="Entrer le nom"
+                  value={currentEmploye.nom}
+                  onIonChange={(e) => {
+                    setCurrentEmploye({
+                      ...currentEmploye,
+                      nom: e.detail.value!
+                    });
+                  }}
+                />
+              </IonItem>
 
-            <IonButton
-              expand="block"
-              color="medium"
-              onClick={() => setShowModal(false)}
-            >
-              Annuler
-            </IonButton>
+              <IonItem className="input-item">
+                <IonInput
+                  type="number"
+                  label="Salaire"
+                  labelPlacement="stacked"
+                  placeholder="Entrer le salaire"
+                  value={currentEmploye.salaire}
+                  onIonChange={(e) => {
+                    setCurrentEmploye({
+                      ...currentEmploye,
+                      salaire: Number(e.detail.value!)
+                    });
+                  }}
+                />
+              </IonItem>
+
+              <div className="modal-buttons">
+
+                <IonButton expand="block" className="save-btn" onClick={handleSave}>
+                  Enregistrer
+                </IonButton>
+
+                <IonButton
+                  expand="block"
+                  className="delete-btn"
+                  color="medium"
+                  onClick={() => setShowModal(false)}
+                >
+                  Annuler
+                </IonButton>
+
+              </div>
+
+            </div>
 
           </IonContent>
         </IonModal>
