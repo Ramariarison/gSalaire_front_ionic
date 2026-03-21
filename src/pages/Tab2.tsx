@@ -7,13 +7,17 @@ import {
   IonItem,
   IonButton,
   IonIcon,
-  IonHeader
+  IonHeader,
+  IonFab,
+  IonFabButton,
+  IonModal,
+  IonInput
 } from "@ionic/react";
 
 import { useEffect, useState } from "react";
 import { Employe } from "../types/Employe";
-import { getEmployes } from "../services/serviceEmploye";
-import { create, trash } from "ionicons/icons";
+import { createEmploye, deleteEmploye, getEmployes, updateEmploye } from "../services/serviceEmploye";
+import { add, create, trash } from "ionicons/icons";
 import './Tab2.css';
 
 const Tab2: React.FC = () => {
@@ -21,6 +25,11 @@ const Tab2: React.FC = () => {
   const [employes, setEmployes] = useState<Employe[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [currentEmploye, setCurrentEmploye] = useState<Employe>({
+    nom: '',
+    salaire: 0
+  });
 
   {/* Charger les employés */}
   const fecthEmployes = async () => {
@@ -41,6 +50,27 @@ const Tab2: React.FC = () => {
   useEffect(() => {
     fecthEmployes();
   }, []);
+
+  const handleSave = async () => {
+    if (currentEmploye.id) {
+      await updateEmploye(currentEmploye);
+    } else {
+      await createEmploye(currentEmploye);
+    }
+
+    setShowModal(false);
+    fecthEmployes();
+  }
+
+  const handleEdit = (employe: Employe) => {
+    setCurrentEmploye(employe);
+    setShowModal(true);
+  }
+
+  const handleDelete = async (id: number) => {
+    await deleteEmploye(id);
+    fecthEmployes();
+  }
 
   return (
     <IonPage>
@@ -83,11 +113,18 @@ const Tab2: React.FC = () => {
                   </div>
 
                   <div className="employe-actions">
-                    <IonButton fill="clear">
+                    <IonButton fill="clear" onClick={() => handleEdit(emp)}>
                       <IonIcon icon={create}></IonIcon>
                     </IonButton>
 
-                    <IonButton color="danger" fill="clear">
+                    <IonButton 
+                      color="danger" 
+                      fill="clear" 
+                      onClick={() => {
+                        if(emp.id !== undefined) {
+                          handleDelete(emp.id);
+                        }
+                      }}>
                       <IonIcon icon={trash}></IonIcon>
                     </IonButton>
                   </div>
@@ -97,6 +134,62 @@ const Tab2: React.FC = () => {
             ))}
           </IonList>
         )}
+
+        {/* Bouton ajouter */}
+        <IonFab className="fab" vertical="bottom" horizontal="end">
+          <IonFabButton className="fab-button"
+            onClick={() => {
+              setCurrentEmploye({ nom: '', salaire: 0 });
+              setShowModal(true);
+            }}
+          >
+            <IonIcon icon={add}></IonIcon>
+          </IonFabButton>
+        </IonFab>
+
+        {/* Modal */}
+        <IonModal isOpen={showModal}>
+          <IonContent>
+            <h2>{currentEmploye.id ? 'Modifier' : 'Ajouter'} un employé</h2>
+
+            <IonInput
+              placeholder="Nom"
+              value={currentEmploye.nom}
+              onIonChange={(e) => {
+                setCurrentEmploye({
+                  ...currentEmploye,
+                  nom: e.detail.value!
+                })
+              }}
+            />
+
+            <IonInput
+              type="number"
+              placeholder="Salaire"
+              value={currentEmploye.salaire}
+              onIonChange={(e) => {
+                setCurrentEmploye({
+                  ...currentEmploye,
+                  salaire: Number(e.detail.value!)
+                })
+              }}
+            />
+
+            <IonButton expand="block" onClick={handleSave}>
+              Enregistrer
+            </IonButton>
+
+            <IonButton
+              expand="block"
+              color="medium"
+              onClick={() => setShowModal(false)}
+            >
+              Annuler
+            </IonButton>
+
+          </IonContent>
+        </IonModal>
+
       </IonContent>
     </IonPage>
   );
