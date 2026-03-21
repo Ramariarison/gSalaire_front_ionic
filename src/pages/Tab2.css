@@ -119,9 +119,21 @@ ion-title {
   font-weight: bold;
 }
 
-.delete-btn {
+.cancel-btn {
   --padding-start: 20px;
   --padding-end: 20px;
   --padding-top: 14px;
   --padding-bottom: 14px;
+}
+
+.save-btn ion-icon {
+  font-size: 18px;
+  margin-right: 8px;
+  color: white;
+}
+
+.cancel-btn ion-icon {
+  font-size: 18px;
+  margin-right: 8px;
+  color: gray;
 }

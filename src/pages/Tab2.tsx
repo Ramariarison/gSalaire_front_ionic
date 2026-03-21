@@ -17,7 +17,7 @@ import {
 import { useEffect, useState } from "react";
 import { Employe } from "../types/Employe";
 import { createEmploye, deleteEmploye, getEmployes, updateEmploye } from "../services/serviceEmploye";
-import { add, create, trash } from "ionicons/icons";
+import { add, checkmark, close, create, trash } from "ionicons/icons";
 import './Tab2.css';
 
 const Tab2: React.FC = () => {
@@ -195,15 +195,17 @@ const Tab2: React.FC = () => {
               <div className="modal-buttons">
 
                 <IonButton expand="block" className="save-btn" onClick={handleSave}>
+                  <IonIcon icon={checkmark} slot="start"></IonIcon>
                   Enregistrer
                 </IonButton>
 
                 <IonButton
                   expand="block"
-                  className="delete-btn"
-                  color="medium"
+                  className="cancel-btn"
+                  color="dark"
                   onClick={() => setShowModal(false)}
                 >
+                  <IonIcon icon={close} slot="start"></IonIcon>
                   Annuler
                 </IonButton>
 
