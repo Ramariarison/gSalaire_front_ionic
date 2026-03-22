@@ -20,7 +20,7 @@ import {
 
 import { useEffect, useState } from "react";
 import { Employe } from "../types/Employe";
-import { createEmploye, deleteEmploye, getEmployes, updateEmploye } from "../services/serviceEmploye";
+import { createEmploye, deleteEmploye, getEmployes, updateEmploye, getStats } from "../services/serviceEmploye";
 import { add, checkmark, close, create, trash } from "ionicons/icons";
 import './Tab2.css';
 
@@ -39,6 +39,11 @@ const Tab2: React.FC = () => {
     nom: '',
     salaire: 0,
     observation: ''
+  });
+  const [stats, setStats] = useState({
+    salaire_total: 0,
+    salaire_min: 0,
+    salaire_max: 0
   });
 
   {/* Charger les employés */}
@@ -59,6 +64,7 @@ const Tab2: React.FC = () => {
 
   useEffect(() => {
     fecthEmployes();
+    employeStats();
   }, []);
 
   const handleSave = async () => {
@@ -86,6 +92,11 @@ const Tab2: React.FC = () => {
     setMessage(response.message);
     showToast(true);
     fecthEmployes();
+  }
+
+  const employeStats = async () => {
+    const response = await getStats();
+    setStats(response);
   }
 
   return (

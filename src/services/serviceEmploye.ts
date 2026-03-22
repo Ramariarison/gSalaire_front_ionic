@@ -2,6 +2,8 @@ import { Employe } from "../types/Employe";
 
 const API_URL = 'http://127.0.0.1:8000/api/employes';
 
+const STATS_URL = 'http://127.0.0.1:8000/api/stats';
+
 export const getEmployes = async (): Promise<Employe[]> => {
     const res = await fetch(API_URL);
     return await res.json();
@@ -34,3 +36,8 @@ export const deleteEmploye = async (id: number) => {
 
     return await res.json();
 };
+
+export const getStats = async () => {
+    const res = await fetch(STATS_URL);
+    return await res.json();
+}
