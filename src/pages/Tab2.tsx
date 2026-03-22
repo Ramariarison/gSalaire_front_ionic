@@ -15,13 +15,15 @@ import {
   IonModal,
   IonInput,
   IonToast,
-  IonAlert
+  IonAlert,
+  IonList,
+  IonLabel
 } from "@ionic/react";
 
 import { useEffect, useState } from "react";
 import { Employe } from "../types/Employe";
 import { createEmploye, deleteEmploye, getEmployes, updateEmploye, getStats } from "../services/serviceEmploye";
-import { add, checkmark, close, create, trash } from "ionicons/icons";
+import { add, checkmark, close, create, trash, arrowUp, cash, arrowDown } from "ionicons/icons";
 import './Tab2.css';
 
 const Tab2: React.FC = () => {
@@ -63,8 +65,8 @@ const Tab2: React.FC = () => {
   }
 
   useEffect(() => {
-    fecthEmployes();
     employeStats();
+    fecthEmployes();
   }, []);
 
   const handleSave = async () => {
@@ -79,6 +81,7 @@ const Tab2: React.FC = () => {
     setMessage(response.message);
     showToast(true);
     setShowModal(false);
+    employeStats();
     fecthEmployes();
   }
 
@@ -91,6 +94,7 @@ const Tab2: React.FC = () => {
     const response = await deleteEmploye(id);
     setMessage(response.message);
     showToast(true);
+    employeStats();
     fecthEmployes();
   }
 
@@ -217,6 +221,39 @@ const Tab2: React.FC = () => {
 
           </IonGrid>
         )}
+
+        {/* Stats */}
+        <IonList className="stats-list">
+          <IonItem className="stat-item total">
+            <IonIcon icon={cash} slot="start" className="stat-icon" />
+            <IonLabel>
+              <div className="stat-label">
+                <h3>Total Salaire</h3>
+                <p>{stats.salaire_total} Ar</p>
+              </div>
+            </IonLabel>
+          </IonItem>
+
+          <IonItem className="stat-item min">
+            <IonIcon icon={arrowDown} slot="start" className="stat-icon" />
+            <IonLabel>
+              <div className="stat-label">
+                <h3>Minimum Salaire</h3>
+                <p>{stats.salaire_min} Ar</p>
+              </div>
+            </IonLabel>
+          </IonItem>
+
+          <IonItem className="stat-item max">
+            <IonIcon icon={arrowUp} slot="start" className="stat-icon" />
+            <IonLabel>
+              <div className="stat-label">
+                <h3>Maximum Salaire</h3>
+                <p>{stats.salaire_max} Ar</p>
+              </div>
+            </IonLabel>
+          </IonItem>
+        </IonList>
 
         {/* Bouton ajouter */}
         <IonFab className="fab" vertical="bottom" horizontal="end">

@@ -173,3 +173,55 @@ ion-col {
     opacity: 1;
   }
 }
+
+/* Conteneur de la liste */
+.stats-list {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.stats-list ion-item.stat-item {
+  margin: 6px 8px;
+  --background: transparent;
+  color: white;
+  font-weight: 600;
+  --padding-start: 12px;
+  --inner-padding-end: 12px;
+}
+
+.stats-list ion-item.stat-item.total {
+  --background: linear-gradient(135deg, #4cd964, #30b65f);
+}
+
+.stats-list ion-item.stat-item.min {
+  --background: linear-gradient(135deg, #ff9500, #cc7a00);
+}
+
+.stats-list ion-item.stat-item.max {
+  --background: linear-gradient(135deg, #ff3b30, #cc2a22);
+}
+
+.stat-icon {
+  font-size: 24px;
+  margin-right: 12px;
+  color: white;
+}
+
+.stat-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;   
+  width: 100%;             
+}
+
+.stat-label h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.stat-label p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
