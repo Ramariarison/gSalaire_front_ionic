@@ -27,6 +27,7 @@ const Tab2: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [currentEmploye, setCurrentEmploye] = useState<Employe>({
+    id: undefined,
     nom: '',
     salaire: 0
   });
@@ -52,9 +53,13 @@ const Tab2: React.FC = () => {
   }, []);
 
   const handleSave = async () => {
-    if (currentEmploye.id) {
+    console.log("EMPLOYE A ENVOYER :", currentEmploye);
+
+    if (currentEmploye.id !== undefined) {
+      console.log("UPDATE appelé avec ID :", currentEmploye.id);
       await updateEmploye(currentEmploye);
     } else {
+      console.log("CREATE appelé");
       await createEmploye(currentEmploye);
     }
 
@@ -63,7 +68,7 @@ const Tab2: React.FC = () => {
   }
 
   const handleEdit = (employe: Employe) => {
-    setCurrentEmploye(employe);
+    setCurrentEmploye({ ...employe });
     setShowModal(true);
   }
 
@@ -167,10 +172,10 @@ const Tab2: React.FC = () => {
                   labelPlacement="stacked"
                   placeholder="Entrer le nom"
                   value={currentEmploye.nom}
-                  onIonChange={(e) => {
+                  onIonInput={(e) => {
                     setCurrentEmploye({
                       ...currentEmploye,
-                      nom: e.detail.value!
+                      nom: e.detail.value! ?? ''
                     });
                   }}
                 />
@@ -183,10 +188,10 @@ const Tab2: React.FC = () => {
                   labelPlacement="stacked"
                   placeholder="Entrer le salaire"
                   value={currentEmploye.salaire}
-                  onIonChange={(e) => {
+                  onIonInput={(e) => {
                     setCurrentEmploye({
                       ...currentEmploye,
-                      salaire: Number(e.detail.value!)
+                      salaire: Number(e.detail.value! ?? 0)
                     });
                   }}
                 />
