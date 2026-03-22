@@ -12,7 +12,8 @@ import {
   IonFabButton,
   IonModal,
   IonInput,
-  IonToast
+  IonToast,
+  IonAlert
 } from "@ionic/react";
 
 import { useEffect, useState } from "react";
@@ -29,6 +30,8 @@ const Tab2: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [toast, showToast] = useState(false);
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+  const [employeToDelete, setEmployeToDelete] = useState<Employe | null>(null);
   const [currentEmploye, setCurrentEmploye] = useState<Employe>({
     id: undefined,
     nom: '',
@@ -43,7 +46,6 @@ const Tab2: React.FC = () => {
     try {
       const data = await getEmployes();
       setEmployes(data);
-      showToast(true);
     } catch (error) {
       console.error('Erreur lors du chargement des employés :', error);
       setError("Impossible de charger les données. Vérifiez votre connexion internet.")
@@ -66,6 +68,7 @@ const Tab2: React.FC = () => {
     }
 
     setMessage(response.message);
+    showToast(true);
     setShowModal(false);
     fecthEmployes();
   }
@@ -78,6 +81,7 @@ const Tab2: React.FC = () => {
   const handleDelete = async (id: number) => {
     const response = await deleteEmploye(id);
     setMessage(response.message);
+    showToast(true);
     fecthEmployes();
   }
 
@@ -108,6 +112,33 @@ const Tab2: React.FC = () => {
             Aucun employé trouvé
           </p>
         )}
+
+        {/* Alert pour gérer la suppression d'un employé */}
+        <IonAlert
+          isOpen={showDeleteAlert}
+          onDidDismiss={() => setShowDeleteAlert(false)}
+          header={'Confirmer la suppression'}
+          message={`Voulez vous vraiment supprimer l'employé ${employeToDelete?.nom} ?`}
+          buttons={[
+            {
+              text: 'Annuler',
+              role: 'cancel',
+              handler: () => {
+                setShowDeleteAlert(false);
+              }
+            },
+            {
+              text: 'Supprimer',
+              role: 'destructive',
+              handler: async () => {
+                if (employeToDelete?.nom !== undefined) {
+                  await handleDelete(employeToDelete.id!);
+                }
+                setShowDeleteAlert(false);
+              }
+            }
+          ]}  
+        />
         
         {/* Liste des employés */}
         {!loading && !error && (
@@ -131,7 +162,8 @@ const Tab2: React.FC = () => {
                       fill="clear" 
                       onClick={() => {
                         if(emp.id !== undefined) {
-                          handleDelete(emp.id);
+                          setEmployeToDelete(emp);
+                          setShowDeleteAlert(true);
                         }
                       }}>
                       <IonIcon icon={trash}></IonIcon>
