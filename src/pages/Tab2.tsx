@@ -11,7 +11,8 @@ import {
   IonFab,
   IonFabButton,
   IonModal,
-  IonInput
+  IonInput,
+  IonToast
 } from "@ionic/react";
 
 import { useEffect, useState } from "react";
@@ -26,6 +27,8 @@ const Tab2: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+  const [toast, showToast] = useState(false);
   const [currentEmploye, setCurrentEmploye] = useState<Employe>({
     id: undefined,
     nom: '',
@@ -40,6 +43,7 @@ const Tab2: React.FC = () => {
     try {
       const data = await getEmployes();
       setEmployes(data);
+      showToast(true);
     } catch (error) {
       console.error('Erreur lors du chargement des employés :', error);
       setError("Impossible de charger les données. Vérifiez votre connexion internet.")
@@ -53,16 +57,15 @@ const Tab2: React.FC = () => {
   }, []);
 
   const handleSave = async () => {
-    console.log("EMPLOYE A ENVOYER :", currentEmploye);
+    let response;
 
     if (currentEmploye.id !== undefined) {
-      console.log("UPDATE appelé avec ID :", currentEmploye.id);
-      await updateEmploye(currentEmploye);
+      response = await updateEmploye(currentEmploye);
     } else {
-      console.log("CREATE appelé");
-      await createEmploye(currentEmploye);
+      response = await createEmploye(currentEmploye);
     }
 
+    setMessage(response.message);
     setShowModal(false);
     fecthEmployes();
   }
@@ -73,7 +76,8 @@ const Tab2: React.FC = () => {
   }
 
   const handleDelete = async (id: number) => {
-    await deleteEmploye(id);
+    const response = await deleteEmploye(id);
+    setMessage(response.message);
     fecthEmployes();
   }
 
@@ -220,6 +224,20 @@ const Tab2: React.FC = () => {
 
           </IonContent>
         </IonModal>
+
+        {/* Toast message */}
+        <IonToast
+          isOpen={toast}
+          message={message || ''}
+          duration={3000}
+          position="top"
+          cssClass="custom-toast"
+          icon={checkmark}
+          color="success"
+          onDidDismiss={() => showToast(false)}
+        >
+
+        </IonToast>
 
       </IonContent>
     </IonPage>

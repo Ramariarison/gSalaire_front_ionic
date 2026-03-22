@@ -11,7 +11,7 @@ const Tab1: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <ExploreContainer name="ionic App" />
+        <ExploreContainer name="Bienvenue" />
       </IonContent>
     </IonPage>
   );

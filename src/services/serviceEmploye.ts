@@ -8,23 +8,29 @@ export const getEmployes = async (): Promise<Employe[]> => {
 };
 
 export const createEmploye = async (employe: Employe) => {
-    await fetch(API_URL, {
+    const res = await fetch(API_URL, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(employe)
     });
+
+    return await res.json();
 };
 
 export const updateEmploye = async (employe: Employe) => {
-    await fetch(`${API_URL}/${employe.id}`, {
+    const res = await fetch(`${API_URL}/${employe.id}`, {
        method: 'PUT',
        headers: { 'content-type': 'application/json' },
        body: JSON.stringify(employe) 
     });
+
+    return await res.json();
 };
 
 export const deleteEmploye = async (id: number) => {
-    await fetch(`${API_URL}/${id}`, {
+    const res = await fetch(`${API_URL}/${id}`, {
         method: 'DELETE'
     });
+
+    return await res.json();
 };

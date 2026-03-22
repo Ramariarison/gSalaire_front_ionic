@@ -137,3 +137,23 @@ ion-title {
   margin-right: 8px;
   color: gray;
 }
+
+.custom-toast {
+  margin-top: 60px;
+  color: white;
+}
+
+.custom-toast::part(container) {
+  animation: slideDown 0.4s ease;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
