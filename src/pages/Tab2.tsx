@@ -3,7 +3,9 @@ import {
   IonToolbar, 
   IonTitle,
   IonContent,
-  IonList,
+  IonGrid,
+  IonRow,
+  IonCol,
   IonItem,
   IonButton,
   IonIcon,
@@ -35,7 +37,8 @@ const Tab2: React.FC = () => {
   const [currentEmploye, setCurrentEmploye] = useState<Employe>({
     id: undefined,
     nom: '',
-    salaire: 0
+    salaire: 0,
+    observation: ''
   });
 
   {/* Charger les employés */}
@@ -131,7 +134,7 @@ const Tab2: React.FC = () => {
               text: 'Supprimer',
               role: 'destructive',
               handler: async () => {
-                if (employeToDelete?.nom !== undefined) {
+                if (employeToDelete?.id !== undefined) {
                   await handleDelete(employeToDelete.id!);
                 }
                 setShowDeleteAlert(false);
@@ -142,45 +145,73 @@ const Tab2: React.FC = () => {
         
         {/* Liste des employés */}
         {!loading && !error && (
-          <IonList>
+          <IonGrid className="table-container">
+
+            <IonRow className="table-header">
+              <IonCol size="1" className="id-col">ID</IonCol>
+              <IonCol size="3">Nom</IonCol>
+              <IonCol size="2">Salaire</IonCol>
+              <IonCol size="3" className="observation-col">Obs</IonCol>
+              <IonCol size="3" className="actions">Actions</IonCol>
+            </IonRow>
+
             {employes.map((emp) => (
-              <IonItem key={emp.id} className="employe-item">
-                <div className="employe-card">
+              <IonRow key={emp.id} className="table-row">
 
-                  <div className="employe-info">
-                    <h2>{emp.nom}</h2>
-                    <p>Salaire: {emp.salaire} Ar</p>
-                  </div>
+                <IonCol size="1" className="id-col">
+                  {emp.id}
+                </IonCol>
 
-                  <div className="employe-actions">
-                    <IonButton fill="clear" onClick={() => handleEdit(emp)}>
-                      <IonIcon icon={create}></IonIcon>
-                    </IonButton>
+                <IonCol size="3">
+                  {emp.nom}
+                </IonCol>
 
-                    <IonButton 
-                      color="danger" 
-                      fill="clear" 
-                      onClick={() => {
-                        if(emp.id !== undefined) {
-                          setEmployeToDelete(emp);
-                          setShowDeleteAlert(true);
-                        }
-                      }}>
-                      <IonIcon icon={trash}></IonIcon>
-                    </IonButton>
-                  </div>
+                <IonCol size="2">
+                  <span className="salary-badge">
+                    {emp.salaire}
+                  </span>
+                </IonCol>
 
-                </div>
-              </IonItem>
+                <IonCol size="3" className="observation-col">
+                  {emp.observation}
+                </IonCol>
+
+                <IonCol size="3" className="actions">
+
+                  <IonButton 
+                    fill="solid" 
+                    className="edit-btn"
+                    onClick={() => handleEdit(emp)}
+                  >
+                    <IonIcon icon={create}></IonIcon>
+                  </IonButton>
+
+                  <IonButton
+                    fill="solid"
+                    color="danger"
+                    onClick={() => {
+                      if (emp.id !== undefined) {
+                        setEmployeToDelete(emp);
+                        setShowDeleteAlert(true);
+                      }
+                    }}
+                  >
+                    <IonIcon icon={trash}></IonIcon>
+                  </IonButton>
+
+                </IonCol>
+
+              </IonRow>
             ))}
-          </IonList>
+
+          </IonGrid>
         )}
 
         {/* Bouton ajouter */}
         <IonFab className="fab" vertical="bottom" horizontal="end">
           <IonFabButton className="fab-button"
             onClick={() => {
-              setCurrentEmploye({ nom: '', salaire: 0 });
+              setCurrentEmploye({ nom: '', salaire: 0, observation: '' });
               setShowModal(true);
             }}
           >

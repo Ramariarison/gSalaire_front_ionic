@@ -34,57 +34,73 @@ ion-title {
   margin-top: 20px;
 }
 
-.employe-item {
-  --background: transparent;
-  margin: 0;
-  padding: 0;
+.table-container {
+  margin: 16px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
 }
 
-.employe-card {
-  width: 100%;
-  background: linear-gradient(145deg, #1e1e2f, #25253a);
-  border-radius: 14px;
-
-  padding: 14px;
-  margin: 4px 12px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.employe-info h2 {
-  margin: 0;
-  font-size: 16px;
+.table-header {
+  background: #f4f6f9;
   font-weight: 600;
-  color: #ffffff;
-}
-
-.employe-info p {
-  margin: 8px 0 0;
   font-size: 14px;
-  color: #4cd964;
+  color: #555;
+  padding: 12px 0;
+  border-bottom: 1px solid #e0e0e0;
 }
 
-.employe-actions {
+.table-row {
+  padding: 12px 0;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.table-row:hover {
+  background-color: #f9fbff;
+  transform: scale(1.01);
+}
+
+ion-col {
   display: flex;
-  gap: 6px;
+  align-items: center;
+  font-size: 14px;
+  color: #333;
 }
 
-.employe-actions ion-button {
-  --background: rgba(255, 255, 255, 0.05);
+.id-col,
+.actions,
+.observation-col {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actions ion-button {
+  --border-radius: 8px;
+  --padding-start: 6px;
+  --padding-end: 6px;
+}
+
+.edit-btn {
+  --background: #4cd964;
   --color: white;
-  border-radius: 8px;
 }
 
-.employe-card:hover {
-  transform: translateY(-2px);
-  transition: 0.2s;
+.actions ion-button[color="danger"] {
+  --background: #ffebee;
+  --color: #c62828;
 }
 
 .fab-button {
   --background: #4cd964;
-  --color: black;
+  --color: white;
 }
 
 .modal-content {
