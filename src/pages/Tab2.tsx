@@ -65,8 +65,8 @@ const Tab2: React.FC = () => {
   }
 
   useEffect(() => {
-    employeStats();
     fecthEmployes();
+    employeStats();
   }, []);
 
   const handleSave = async () => {

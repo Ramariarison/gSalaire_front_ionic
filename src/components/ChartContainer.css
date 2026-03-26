@@ -1,0 +1,29 @@
+.body {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+}
+
+.chart-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  height: 400px;
+  margin: 20px 0;
+}
+
+.chart-description {
+  text-align: center;
+  color: #555;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.btn {
+    --background: #a6a6a6;
+    --color: black;
+}
