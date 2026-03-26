@@ -24,6 +24,6 @@
 }
 
 .btn {
-    --background: #a6a6a6;
-    --color: black;
+  --background: black;
+  --color: white;
 }

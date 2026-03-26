@@ -93,9 +93,9 @@ ion-col {
   --color: white;
 }
 
-.actions ion-button[color="danger"] {
-  --background: #ffebee;
-  --color: #c62828;
+.delete-btn {
+  --background: black;
+  --color: white;
 }
 
 .fab-button {
@@ -190,15 +190,15 @@ ion-col {
 }
 
 .stats-list ion-item.stat-item.total {
-  --background: linear-gradient(135deg, #4cd964, #30b65f);
+  --background: #404040;
 }
 
 .stats-list ion-item.stat-item.min {
-  --background: linear-gradient(135deg, #ff9500, #cc7a00);
+  --background: #808080;
 }
 
 .stats-list ion-item.stat-item.max {
-  --background: linear-gradient(135deg, #ff3b30, #cc2a22);
+  --background: #b3b3b3;
 }
 
 .stat-icon {

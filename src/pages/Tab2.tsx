@@ -203,7 +203,7 @@ const Tab2: React.FC = () => {
 
                   <IonButton
                     fill="solid"
-                    color="danger"
+                    className="delete-btn"
                     onClick={() => {
                       if (emp.id !== undefined) {
                         setEmployeToDelete(emp);

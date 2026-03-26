@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { getStats } from '../services/serviceEmploye';
 import { Pie } from 'react-chartjs-2';
-import { IonButton } from '@ionic/react';
+import { IonButton, IonIcon } from '@ionic/react';
 import './ChartContainer.css';
+import { refreshOutline } from 'ionicons/icons';
 
 import {
   Chart as ChartJS,
@@ -35,7 +36,7 @@ const ChartContainer: React.FC = () => {
     datasets: [
       {
         data: [stats.salaire_total, stats.salaire_min, stats.salaire_max],
-        backgroundColor: ["#4cd964", "#ff9500", "#ff3b30"],
+        backgroundColor: ["#404040", "#808080", "#b3b3b3"],
         borderWidth: 2
       }
     ]
@@ -55,9 +56,9 @@ const ChartContainer: React.FC = () => {
         }
       },
       tooltip: {
-        backgroundColor: "#000",
-        titleColor: "#fff",
-        bodyColor: "#fff",
+        backgroundColor: "white",
+        titleColor: "black",
+        bodyColor: "black",
         callbacks: {
           label: function (context: TooltipItem<"pie">) {
             return `${context.label} : ${context.raw} Ar`;
@@ -79,6 +80,7 @@ const ChartContainer: React.FC = () => {
       </p>
 
       <IonButton onClick={fetchStats} className="btn">
+        <IonIcon slot="start" icon={refreshOutline}/>
         Rafraîchir les données
       </IonButton>
     </div>
