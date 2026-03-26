@@ -70,8 +70,25 @@ const Tab2: React.FC = () => {
   }, []);
 
   const handleSave = async () => {
-    let response;
+    if (!currentEmploye.nom || !currentEmploye.salaire) {
+      setMessage("Veuillez remplir tous les champs !");
+      showToast(true);
+      return;
+    }
 
+    if (currentEmploye.id !== undefined) {
+      const original = employes.find(emp => emp.id === currentEmploye.id);
+      if (original &&
+          original.nom === currentEmploye.nom &&
+          original.salaire === currentEmploye.salaire &&
+          original.observation === currentEmploye.observation) {
+        setMessage("Aucune modification détectée !");
+        showToast(true);
+        return;
+      }
+    }
+
+    let response;
     if (currentEmploye.id !== undefined) {
       response = await updateEmploye(currentEmploye);
     } else {
@@ -83,7 +100,7 @@ const Tab2: React.FC = () => {
     setShowModal(false);
     employeStats();
     fecthEmployes();
-  }
+  };
 
   const handleEdit = (employe: Employe) => {
     setCurrentEmploye({ ...employe });
@@ -342,13 +359,18 @@ const Tab2: React.FC = () => {
           message={message || ''}
           duration={3000}
           position="top"
-          cssClass="custom-toast"
-          icon={checkmark}
-          color="success"
+          color={
+            message === "Veuillez remplir tous les champs !" || message === "Aucune modification détectée !"
+              ? "danger"
+              : "success"
+          }
+          icon={
+            message === "Veuillez remplir tous les champs !" || message === "Aucune modification détectée !"
+              ? close
+              : checkmark
+          }
           onDidDismiss={() => showToast(false)}
-        >
-
-        </IonToast>
+        />
 
       </IonContent>
     </IonPage>
