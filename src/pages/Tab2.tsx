@@ -273,7 +273,7 @@ const Tab2: React.FC = () => {
         </IonList>
 
         {/* Bouton ajouter */}
-        <IonFab className="fab" vertical="bottom" horizontal="end">
+        <IonFab className="fab" vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton className="fab-button"
             onClick={() => {
               setCurrentEmploye({ nom: '', salaire: 0, observation: '' });
